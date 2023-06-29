@@ -20,15 +20,24 @@ AppState.prototype.instantiateProducts = function () {
 
 AppState.prototype.saveToLocalStorage = function () {
   // TODO: Fill in this instance method to save product data to local storage
-}
+  // so like using JSON?
+  let savedProducts = JSON.stringify(this.allProducts);
+  localStorage.setItem("savedProducts", savedProducts);
+  console.log(this.allProducts);
+  }
+
 
 AppState.prototype.loadItems = function () {
 
   // TODO: Update this instance method to retrieve data from local storage instead of creating new Products on each page load
+  let getItems = JSON.parse(localStorage.getItem("savedProducts"))
+  if (getItems){
+    this.allProducts = getItems;
+  }else{
+    this.instantiateProducts();
+  }
 
-  this.instantiateProducts();
-
-}
+  }
 
 
 function Product(name, fileExtension = 'jpg') {
